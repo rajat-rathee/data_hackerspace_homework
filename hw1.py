@@ -9,8 +9,8 @@ import csv
 import numpy as np
 
 def histogram_times(filename):
-    pass
-
+    with open(filename) as file:
+        print(file.read())
 def weigh_pokemons(filename, weight):
     pass
 
@@ -25,3 +25,5 @@ def normalize(image):
 
 def sigmoid_normalize(image):
     pass
+
+histogram_times('airplane_crashes.csv')
