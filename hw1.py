@@ -9,8 +9,13 @@ import csv
 import numpy as np
 
 def histogram_times(filename):
-    with open(filename) as file:
-        print(file.read())
+    a = [None] * 24
+    for l, v in enumerate(a):
+        a[l] = 0
+    data = np.loadtxt(filename, delimiter= ',', skiprows=1)
+    data1 = data[:,1]
+    for c in data1:
+        print(c)
 def weigh_pokemons(filename, weight):
     pass
 
