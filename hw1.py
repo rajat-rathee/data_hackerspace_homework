@@ -80,7 +80,20 @@ def single_type_candy_count(filename):
     return count
 
 def reflections_and_projections(points):
-    pass
+    pointsarr = np.array(points)
+    arrx = []
+    arry = []
+    final = np.zeros(shape=(2,len(pointsarr)))
+    for x in pointsarr[0]:
+        arrx.append(x)
+    for y in pointsarr[1]:
+        arry.append(y)
+    arrx = np.array(arrx)
+    arry = np.array(arry)
+    finalx = np.zeros(shape=(len(arrx)))
+    finaly = np.zeros(shape=(len(arry)))
+    for x in range(len(arrx)):
+
 
 def normalize(image):
     arr = np.array(image)
@@ -99,4 +112,4 @@ def sigmoid_normalize(image):
 #weigh_pokemons('pokedex.json', 10.0)
 #single_type_candy_count('pokedex.json')
 #normalize([[122,32,243],[12,63,122],[132,231,53]])
-#reflections_and_projections()
+reflections_and_projections([[1,4,6,3,7],[5,2,5,2,4]])
