@@ -13,9 +13,10 @@ from collections import defaultdict
 
 def histogram_times(filename):
     arr = [None] * 24
+    arr2 = []
     for l, v in enumerate(arr):
         arr[l] = 0
-    time_per = defaultdict(int)
+    #time_per = defaultdict(int)
     with open(filename) as f:
         csv_reader = csv.reader(f)
         airplane_data = list(csv_reader)
@@ -24,10 +25,11 @@ def histogram_times(filename):
             continue
         else:
             time = (x[1])
-        if x[11]:
-            num= int(x[11])
-            time_per[time] += num
-    for x in time_per:
+            arr2.append(time)
+        #if x[11]:
+            #num= int(x[11])
+            #time_per[time] += num
+    for x in arr2:
         if(len(x) != 5):
             continue
         else:
@@ -46,6 +48,7 @@ def histogram_times(filename):
                     arr[0] += 1
                 else:
                     arr[c] += 1
+    print(arr)
     return arr
 def weigh_pokemons(filename, weight):
     with open(filename) as f:
@@ -94,7 +97,7 @@ def normalize(image):
 def sigmoid_normalize(image):
     pass
 
-#histogram_times('airplane_crashes.csv')
+histogram_times('airplane_crashes.csv')
 #weigh_pokemons('pokedex.json', 10.0)
 #single_type_candy_count('pokedex.json')
-normalize([[122,32,243],[12,63,122],[132,231,53]])
+#normalize([[122,32,243],[12,63,122],[132,231,53]])
