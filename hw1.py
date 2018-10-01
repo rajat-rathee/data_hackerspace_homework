@@ -59,10 +59,26 @@ def weigh_pokemons(filename, weight):
         if((data['pokemon'][index]['weight']) == final):
             names.append(data['pokemon'][index]['name'])
         index += 1
-    print(names)
     return names
+
 def single_type_candy_count(filename):
-    pass
+    with open(filename) as f:
+        data = json.load(f)
+    index = 0
+    count = 0
+    for x in data['pokemon']:
+        if(len(data['pokemon'][index]['type']) != 1):
+            index += 1
+            continue
+        else:
+            if (data['pokemon'][index]).get('candy_count') == None:
+                index += 1
+                continue
+            else:
+                count += (data['pokemon'][index]).get('candy_count')
+                index += 1
+    print(count)
+    return count
 
 def reflections_and_projections(points):
     pass
@@ -74,4 +90,5 @@ def sigmoid_normalize(image):
     pass
 
 #histogram_times('airplane_crashes.csv')
-weigh_pokemons('pokedex.json', 10.0)
+#weigh_pokemons('pokedex.json', 10.0)
+single_type_candy_count('pokedex.json')
