@@ -90,10 +90,11 @@ def reflections_and_projections(points):
     for y in pointsarr[1]:
         arry.append(y)
     arrx = np.array(arrx)
+    arrx = arrx.astype(float)
     arry = np.array(arry)
+    flipy = np.zeros(shape=(len(arry)))
     rotx = np.zeros(shape=(len(arrx)))
     roty = np.zeros(shape=(len(arry)))
-    flipy = np.zeros(shape=(len(arry)))
     projx = np.zeros(shape=(len(arrx)))
     projy = np.zeros(shape=(len(arry)))
     for y in range(len(arrx)):
@@ -105,18 +106,20 @@ def reflections_and_projections(points):
         else:
             num = 1 - arry[y]
             flipy[y] = 1 + abs(num)
+
     for x in range(len(rotx)):
-        rotx[x] = ((arrx[x] * np.cos(np.pi/2)) - (arrx[x] * np.sin(np.pi/2)))
-    for y in range(len(roty)):
-        roty[y] = ((flipy[y] * np.sin(np.pi/2)) + (flipy[y] * np.cos(np.pi/2)))
+        rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) - (flipy[x] * np.sin((np.pi)/2)))
+        roty[x] = ((flipy[x] * np.sin((np.pi)/2)) + (arrx[x] * np.cos((np.pi)/2)))
+    print(rotx)
+    print(roty)
     for x in range(len(rotx)):
-        projx[x] = (rotx[x] + (3 * rotx[x]))
-        projy[x] = (roty[x]*3) + (roty[x]*9)
+        projx[x] = (rotx[x] + (3 * roty[x]))
+        projy[x] = (roty[x]*3) + (rotx[x]*9)
     for y in range(len(rotx)):
         projx[y] = projx[y] / 10
         projy[y] = projy[y] /10
-    print(projx)
-    print(projy)
+    #print(projx)
+    #print(projy)
 def normalize(image):
     arr = np.array(image)
     arr = arr.astype(float)
