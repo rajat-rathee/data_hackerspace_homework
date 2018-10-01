@@ -27,8 +27,6 @@ def histogram_times(filename):
         if x[11]:
             num= int(x[11])
             time_per[time] += num
-    #time_per[1]
-    index = 0
     for x in time_per:
         if(len(x) != 5):
             continue
@@ -48,15 +46,21 @@ def histogram_times(filename):
                     arr[0] += 1
                 else:
                     arr[c] += 1
-    print(arr)
     return arr
 def weigh_pokemons(filename, weight):
     with open(filename) as f:
         data = json.load(f)
     #x = json.dumps(filename)
-    print(data['pokemon'][0]['weight'])
-    weights = []
+    index = 0
     names = []
+    weightadd = " kg"
+    final = str(weight) + weightadd
+    for x in data['pokemon']:
+        if((data['pokemon'][index]['weight']) == final):
+            names.append(data['pokemon'][index]['name'])
+        index += 1
+    print(names)
+    return names
 def single_type_candy_count(filename):
     pass
 
@@ -69,5 +73,5 @@ def normalize(image):
 def sigmoid_normalize(image):
     pass
 
-histogram_times('airplane_crashes.csv')
-#weigh_pokemons('pokedex.json', 10.0)
+#histogram_times('airplane_crashes.csv')
+weigh_pokemons('pokedex.json', 10.0)
