@@ -19,6 +19,7 @@ def histogram_times(filename):
     with open(filename) as f:
         csv_reader = csv.reader(f)
         airplane_data = list(csv_reader)
+
     for x in airplane_data[1:]:
         if x[1] == '':
             continue
@@ -101,11 +102,12 @@ def reflections_and_projections(points):
         else:
             num = 1 - arry[y]
             flipy[y] = 1 + abs(num)
-
+    #print(flipy)
     for x in range(len(rotx)):
-        rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) + (flipy[x] * np.sin((np.pi)/2)))
-        roty[x] = ((flipy[x] * np.cos((np.pi)/2)) - (arrx[x] * np.sin((np.pi)/2)))
-
+        rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) - (flipy[x] * np.sin((np.pi)/2)))
+        roty[x] = ((flipy[x] * np.cos((np.pi)/2)) + (arrx[x] * np.sin((np.pi)/2)))
+    print(rotx)
+    print(roty)
     for x in range(len(rotx)):
         projx[x] = (((1/10) * rotx[x]) + ((3/10) * roty[x]))
         projy[x] = (rotx[x]* (3/10)) + (roty[x]*(9/10))
@@ -118,8 +120,8 @@ def reflections_and_projections(points):
     for y in final[1]:
         final[1][indexy] = projy[indexy]
         indexy += 1
+    print(final)
     return final
-
 def normalize(image):
     arr = np.array(image)
     arr = arr.astype(float)
