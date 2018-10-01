@@ -106,8 +106,6 @@ def reflections_and_projections(points):
     for x in range(len(rotx)):
         rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) - (flipy[x] * np.sin((np.pi)/2)))
         roty[x] = ((flipy[x] * np.cos((np.pi)/2)) + (arrx[x] * np.sin((np.pi)/2)))
-    print(rotx)
-    print(roty)
     for x in range(len(rotx)):
         projx[x] = (((1/10) * rotx[x]) + ((3/10) * roty[x]))
         projy[x] = (rotx[x]* (3/10)) + (roty[x]*(9/10))
@@ -120,7 +118,6 @@ def reflections_and_projections(points):
     for y in final[1]:
         final[1][indexy] = projy[indexy]
         indexy += 1
-    print(final)
     return final
 def normalize(image):
     arr = np.array(image)
@@ -143,12 +140,4 @@ def sigmoid_normalize(image, a):
             arr[i][j] = 1/(1 + e)
             arr[i][j] *= 255
     arr = arr.astype(int)
-    print(arr)
     return arr
-
-#histogram_times('airplane_crashes.csv')
-#weigh_pokemons('pokedex.json', 10.0)
-#single_type_candy_count('pokedex.json')
-#normalize([[122,32,243],[12,63,122],[132,231,53]])
-reflections_and_projections([[1,4,6,3,7],[5,2,5,2,4]])
-#sigmoid_normalize([[122,32,243],[12,63,122],[132,231,53]],5.0)
