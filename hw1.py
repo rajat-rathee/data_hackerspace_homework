@@ -84,11 +84,17 @@ def reflections_and_projections(points):
     pass
 
 def normalize(image):
-    pass
-
+    arr = np.array(image)
+    for i in range(len(arr)):
+        for j in range(len(arr[i])):
+            num = arr[i][j]
+            arr[i][j] = (255/(arr.max()-arr.min())) * (num - arr.min())
+    print(arr)
+    return arr
 def sigmoid_normalize(image):
     pass
 
 #histogram_times('airplane_crashes.csv')
 #weigh_pokemons('pokedex.json', 10.0)
-single_type_candy_count('pokedex.json')
+#single_type_candy_count('pokedex.json')
+normalize([[122,32,243],[12,63,122],[132,231,53]])
