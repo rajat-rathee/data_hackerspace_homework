@@ -44,12 +44,10 @@ def histogram_times(filename):
                     arr[0] += 1
                 else:
                     arr[c] += 1
-    print(arr)
     return arr
 def weigh_pokemons(filename, weight):
     with open(filename) as f:
         data = json.load(f)
-    #x = json.dumps(filename)
     index = 0
     names = []
     weightadd = " kg"
@@ -76,14 +74,13 @@ def single_type_candy_count(filename):
             else:
                 count += (data['pokemon'][index]).get('candy_count')
                 index += 1
-    print(count)
     return count
 
 def reflections_and_projections(points):
     pointsarr = np.array(points)
     arrx = []
     arry = []
-    final = np.zeros(shape=(2,len(pointsarr)))
+    final = np.zeros(shape=(2,len(pointsarr[0])))
     for x in pointsarr[0]:
         arrx.append(x)
     for y in pointsarr[1]:
@@ -106,18 +103,23 @@ def reflections_and_projections(points):
             flipy[y] = 1 + abs(num)
 
     for x in range(len(rotx)):
-        rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) - (flipy[x] * np.sin((np.pi)/2)))
-        roty[x] = ((flipy[x] * np.cos((np.pi)/2)) + (arrx[x] * np.sin((np.pi)/2)))
-    #print(rotx)
-    #print(roty)
+        rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) + (flipy[x] * np.sin((np.pi)/2)))
+        roty[x] = ((flipy[x] * np.cos((np.pi)/2)) - (arrx[x] * np.sin((np.pi)/2)))
+
     for x in range(len(rotx)):
-        projx[x] = (rotx[x] + (3 * roty[x]))
-        projy[x] = (rotx[x]*3) + (roty[x]*9)
-    for y in range(len(rotx)):
-        projx[y] /= 10
-        projy[y] /= 10
-    print(projx)
-    print(projy)
+        projx[x] = (((1/10) * rotx[x]) + ((3/10) * roty[x]))
+        projy[x] = (rotx[x]* (3/10)) + (roty[x]*(9/10))
+
+    indexx = 0
+    indexy = 0
+    for x in final[0]:
+        final[0][indexx] = projx[indexx]
+        indexx += 1
+    for y in final[1]:
+        final[1][indexy] = projy[indexy]
+        indexy += 1
+    return final
+
 def normalize(image):
     arr = np.array(image)
     arr = arr.astype(float)
@@ -147,4 +149,4 @@ def sigmoid_normalize(image, a):
 #single_type_candy_count('pokedex.json')
 #normalize([[122,32,243],[12,63,122],[132,231,53]])
 reflections_and_projections([[1,4,6,3,7],[5,2,5,2,4]])
-sigmoid_normalize([[122,32,243],[12,63,122],[132,231,53]],5.0)
+#sigmoid_normalize([[122,32,243],[12,63,122],[132,231,53]],5.0)
