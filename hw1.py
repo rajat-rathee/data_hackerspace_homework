@@ -90,11 +90,24 @@ def reflections_and_projections(points):
         arry.append(y)
     arrx = np.array(arrx)
     arry = np.array(arry)
-    finalx = np.zeros(shape=(len(arrx)))
-    finaly = np.zeros(shape=(len(arry)))
-    for x in range(len(arrx)):
-
-
+    rotx = np.zeros(shape=(len(arrx)))
+    roty = np.zeros(shape=(len(arry)))
+    flipy = np.zeros(shape=(len(arry)))
+    for y in range(len(arrx)):
+        if arry[y] > 1:
+            num = 1 - arry[y]
+            flipy[y] = 1 - abs(num)
+        elif arry[y] == 1:
+            flipy[y] = arry[y]
+        else:
+            num = 1 - arry[y]
+            flipy[y] = 1 + abs(num)
+    for x in range(len(rotx)):
+        rotx[x] = (arrx[x] * np.cos(np.pi/2)) - (arrx[x] * np.sin(np.pi/2))
+    for y in range(len(roty)):
+        roty[y] = (flipy[y] * np.sin(np.pi/2)) + (flipy[x] * np.cos(np.pi/2))
+    print(rotx)
+    print(roty)
 def normalize(image):
     arr = np.array(image)
     arr = arr.astype(float)
