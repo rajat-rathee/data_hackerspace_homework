@@ -16,7 +16,6 @@ def histogram_times(filename):
     arr2 = []
     for l, v in enumerate(arr):
         arr[l] = 0
-    #time_per = defaultdict(int)
     with open(filename) as f:
         csv_reader = csv.reader(f)
         airplane_data = list(csv_reader)
@@ -26,9 +25,6 @@ def histogram_times(filename):
         else:
             time = (x[1])
             arr2.append(time)
-        #if x[11]:
-            #num= int(x[11])
-            #time_per[time] += num
     for x in arr2:
         if(len(x) != 5):
             continue
@@ -88,16 +84,19 @@ def reflections_and_projections(points):
 
 def normalize(image):
     arr = np.array(image)
+    arr = arr.astype(float)
+    max = arr.max()
+    min = arr.min()
     for i in range(len(arr)):
         for j in range(len(arr[i])):
             num = arr[i][j]
-            arr[i][j] = (255/(arr.max()-arr.min())) * (num - arr.min())
-    print(arr)
+            arr[i][j] = (255/(max-min) * (num - min))
     return arr
 def sigmoid_normalize(image):
     pass
 
-histogram_times('airplane_crashes.csv')
+#histogram_times('airplane_crashes.csv')
 #weigh_pokemons('pokedex.json', 10.0)
 #single_type_candy_count('pokedex.json')
 #normalize([[122,32,243],[12,63,122],[132,231,53]])
+#reflections_and_projections()
