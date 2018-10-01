@@ -81,7 +81,6 @@ def single_type_candy_count(filename):
 
 def reflections_and_projections(points):
     pointsarr = np.array(points)
-    pointsarr = pointsarr.astype(float)
     arrx = []
     arry = []
     final = np.zeros(shape=(2,len(pointsarr)))
@@ -90,7 +89,6 @@ def reflections_and_projections(points):
     for y in pointsarr[1]:
         arry.append(y)
     arrx = np.array(arrx)
-    arrx = arrx.astype(float)
     arry = np.array(arry)
     flipy = np.zeros(shape=(len(arry)))
     rotx = np.zeros(shape=(len(arrx)))
@@ -109,17 +107,17 @@ def reflections_and_projections(points):
 
     for x in range(len(rotx)):
         rotx[x] = ((arrx[x] * np.cos((np.pi)/2)) - (flipy[x] * np.sin((np.pi)/2)))
-        roty[x] = ((flipy[x] * np.sin((np.pi)/2)) + (arrx[x] * np.cos((np.pi)/2)))
-    print(rotx)
-    print(roty)
+        roty[x] = ((flipy[x] * np.cos((np.pi)/2)) + (arrx[x] * np.sin((np.pi)/2)))
+    #print(rotx)
+    #print(roty)
     for x in range(len(rotx)):
         projx[x] = (rotx[x] + (3 * roty[x]))
-        projy[x] = (roty[x]*3) + (rotx[x]*9)
+        projy[x] = (rotx[x]*3) + (roty[x]*9)
     for y in range(len(rotx)):
-        projx[y] = projx[y] / 10
-        projy[y] = projy[y] /10
-    #print(projx)
-    #print(projy)
+        projx[y] /= 10
+        projy[y] /= 10
+    print(projx)
+    print(projy)
 def normalize(image):
     arr = np.array(image)
     arr = arr.astype(float)
@@ -130,11 +128,23 @@ def normalize(image):
             num = arr[i][j]
             arr[i][j] = (255/(max-min) * (num - min))
     return arr
-def sigmoid_normalize(image):
-    pass
+def sigmoid_normalize(image, a):
+    arr = np.array(image)
+    arr = arr.astype(float)
+    for i in range(len(arr)):
+        for j in range(len(arr[i])):
+            num = arr[i][j]
+            b = 1/-a
+            e = np.exp((b*(num - 128)))
+            arr[i][j] = 1/(1 + e)
+            arr[i][j] *= 255
+    arr = arr.astype(int)
+    print(arr)
+    return arr
 
 #histogram_times('airplane_crashes.csv')
 #weigh_pokemons('pokedex.json', 10.0)
 #single_type_candy_count('pokedex.json')
 #normalize([[122,32,243],[12,63,122],[132,231,53]])
 reflections_and_projections([[1,4,6,3,7],[5,2,5,2,4]])
+sigmoid_normalize([[122,32,243],[12,63,122],[132,231,53]],5.0)
