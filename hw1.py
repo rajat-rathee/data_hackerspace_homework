@@ -45,6 +45,7 @@ def histogram_times(filename):
                     arr[0] += 1
                 else:
                     arr[c] += 1
+    print(arr)
     return arr
 def weigh_pokemons(filename, weight):
     with open(filename) as f:
